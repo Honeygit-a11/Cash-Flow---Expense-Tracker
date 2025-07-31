@@ -1,10 +1,9 @@
 import React from "react";
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -14,7 +13,7 @@ const handleMenu = (event) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  
   const headerStyle = {
     backgroundColor: "#333",
     color: "white",
@@ -27,28 +26,45 @@ const handleMenu = (event) => {
     width: '100%',
     boxSizing: 'border-box',
   };
-
+  
   const NavStyle = {
     padding: '0 15px',
     justifyContent: "space-around",
     alignItems: "center",
     color: "white",
-    fontSize: "14px",
+    fontSize: "16px",
     textDecoration: 'none',
+    marginRight:'50px',
   };
 
   return (
+  <>
+  
     <header style={headerStyle}>
-     
-      Expense Tracker
-      <Box style={{ flex: 1, textAlign: 'right' }}>
+      <Box 
+      style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      width: "100%",
+    }}>
+
+     <video 
+     src="/logo.mp4"
+     autoPlay
+     loop
+     muted
+     style={{height:'70px', marginLeft:'30px', borderRadius:'50px'}}
+/>
+    <Box style={{ display: "flex", alignItems: "center", gap: "20px", marginLeft: "20px" }}>
+
 
         <Link
           to="/main/dashboard"
           style={NavStyle}
           onMouseEnter={(e) => (e.target.style.color = "#FFD700")}
           onMouseLeave={(e) => (e.target.style.color = "white")}
-        >
+          >
           Dashboard
         </Link>
         <Link
@@ -56,7 +72,7 @@ const handleMenu = (event) => {
           style={NavStyle}
           onMouseEnter={(e) => (e.target.style.color = "#FFD700")}
           onMouseLeave={(e) => (e.target.style.color = "white")}
-        >
+          >
           Add Expense
         </Link>
         <Link
@@ -64,15 +80,27 @@ const handleMenu = (event) => {
           style={NavStyle}
           onMouseEnter={(e) => (e.target.style.color = "#FFD700")}
           onMouseLeave={(e) => (e.target.style.color = "white")}
-        >
+          >
           Reports
         </Link>
+</Box>
 
 
 
-       <div onClick={handleMenu} style={{ display: 'inline-block', cursor: 'pointer', paddingLeft: '10px' }}>
-  <AccountCircle />
-</div>
+  
+   <IconButton
+      size="large"
+      edge="end"
+      aria-label="account of current user"
+      aria-controls="menu-appbar"
+      aria-haspopup="true"
+      onClick={handleMenu}
+      color="inherit"
+      sx={{fontSize:'50px'}}
+    >
+      <AccountCircle fontSize="inherit" />
+    </IconButton>
+
 
               <Menu
                 id="menu-appbar"
@@ -89,13 +117,12 @@ const handleMenu = (event) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}> <Link to="/main/profile" style={{ textDecoration: "none", color: "inherit" }}>Profile</Link></MenuItem>
+                <MenuItem onClick={handleClose}> <Link to="/main/Logout" style={{textDecoration: "none", color: "inherit" }}>My account</Link></MenuItem>
               </Menu>
-
-      </Box>
-    </header>
-
+</Box>
+   </header>
+</>
   );
 };
 

@@ -65,7 +65,7 @@ const Reports = () => {
 
       {/* Summary */}
       <div style={summaryStyle}>
-        <div>Total Income: ₹{totalIncome}</div>
+        <div>Income: ₹{totalIncome}</div>
         <div>Total Expense: ₹{totalExpense}</div>
         <div>Balance: ₹{balance}</div>
       </div>

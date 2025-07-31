@@ -5,6 +5,8 @@ import MainLayout from "./layout/MainLayout";
 import Dashboard from "./pages/Dashboard";
 import ExpenseForm from "./components/ExpenseForm";
 import Reports from "./pages/Report";
+import Profile from "./pages/Profile";
+import Logout from "./pages/Logout";
 
 
 
@@ -21,7 +23,8 @@ const App =() => {
         <Route path="dashboard" element={<Dashboard/>}/>
         <Route path="add-transaction" element={<ExpenseForm/>}/>
         <Route path="reports" element={<Reports/>}/>
-      
+        <Route path="profile" element={<Profile/>}/>
+        <Route path="logout" element={<Logout/>}/>
       </Route>
     </Routes>
     </BrowserRouter>
