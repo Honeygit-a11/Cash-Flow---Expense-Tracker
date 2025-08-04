@@ -1,42 +1,142 @@
+/* Global Styling */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f1f3f6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Main Container */
 .money-transfer-form {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #f8f9fa;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  font-family: Arial, sans-serif;
-}
-
-.money-transfer-form h2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 50px;
+  flex-wrap: wrap;
   text-align: center;
-  margin-bottom: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.money-transfer-form input {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* Card-style container */
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.money-transfer-form button {
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Form Container */
+form {
+  flex: 1;
+  min-width: 320px;
+  max-width: 420px;
+}
+
+/* Form Inputs */
+form input {
   width: 100%;
-  padding: 0.75rem;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Form Button */
+form button {
+  width: 100%;
+  background: linear-gradient(to right, #007bff, #0056b3);
+  color: #fff;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: linear-gradient(to right, #0056b3, #003d80);
+}
+
+/* Message Feedback */
+.message {
+  margin-top: 15px;
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Heading Styles */
+.money-transfer-form h2,
+.transaction-report h3 {
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* Transaction Report */
+.transaction-report {
+  flex: 2;
+  min-width: 450px;
+}
+
+.transaction-report table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.transaction-report th,
+.transaction-report td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.transaction-report th {
   background-color: #007bff;
   color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  font-weight: 600;
 }
 
-.money-transfer-form button:hover {
-  background-color: #0056b3;
+.transaction-report tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.message {
-  text-align: center;
-  margin-top: 1rem;
-  color: green;
+.transaction-report tr:hover {
+  background-color: #f1f1f1;
+  transition: background 0.2s;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .money-transfer-form {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+  }
+
+  .transaction-report,
+  form {
+    width: 100%;
+  }
 }
