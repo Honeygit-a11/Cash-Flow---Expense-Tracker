@@ -7,6 +7,7 @@ import ExpenseForm from "./components/ExpenseForm";
 import Reports from "./pages/Report";
 import Profile from "./pages/Profile";
 import Logout from "./pages/Logout";
+import Moneytransfer from "./pages/Moneytransfer";
 
 
 
@@ -23,6 +24,7 @@ const App =() => {
         <Route path="dashboard" element={<Dashboard/>}/>
         <Route path="add-transaction" element={<ExpenseForm/>}/>
         <Route path="reports" element={<Reports/>}/>
+        <Route path='MoneyTransfer' element={<Moneytransfer/>}/>
         <Route path="profile" element={<Profile/>}/>
         <Route path="logout" element={<Logout/>}/>
       </Route>

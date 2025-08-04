@@ -7,16 +7,16 @@ const Logout = () => {
   const handleLogout = () => {
     // Clear any user data (if stored)
     localStorage.removeItem("user"); // optional: remove token/email/etc.
-    localStorage.removeItem("transactions"); // if needed
+    // localStorage.removeItem("transactions"); // if needed
 
     // Navigate to login page
     navigate("/");
   };
-
   const containerStyle = {
     maxWidth: "400px",
+    height:'300px',
     margin: "50px auto",
-    padding: "20px",
+    padding: "70px",
     textAlign: "center",
     border: "1px solid #ccc",
     borderRadius: "10px",
@@ -35,12 +35,13 @@ const Logout = () => {
 
   return (
     <div style={containerStyle}>
+      <div className='content'>
       <h2>My Account</h2>
       <p>You are logged in.</p>
       <button style={buttonStyle} onClick={handleLogout}>
         Logout
       </button>
-    </div>
+   </div> </div>
   );
 };
 

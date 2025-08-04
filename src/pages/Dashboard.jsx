@@ -29,16 +29,20 @@ const Dashboard = () => {
   }));
 
   const balance = income - expense;
-
-  const recentTransactions = transactions.slice(-7).reverse(); // Last 4
+  const recentTransactions = transactions.slice(-7).reverse();
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", fontFamily: "Arial, sans-serif" }}>
-      {/* Sidebar */}
-      
-
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        fontFamily: "Arial, sans-serif",
+        background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
+        padding: "20px",
+      }}
+    >
       {/* Main Dashboard */}
-      <div style={{ flex: 1, padding: "20px", backgroundColor: "#f5f6fa" }}>
+      <div style={{ flex: 1, padding: "20px", width: "100%" }}>
         {/* Top Bar */}
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", alignItems: "center" }}>
           <h1>Dashboard</h1>
@@ -49,7 +53,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-          
         {/* Cards Row */}
         <div style={{ display: "flex", gap: "20px", marginBottom: "30px" }}>
           <div style={cardStyle}>
@@ -69,7 +72,7 @@ const Dashboard = () => {
         {/* Bottom Section */}
         <div style={{ display: "flex", gap: "20px" }}>
           {/* Pie Chart */}
-          <div style={{ flex: 1, background: "#fff", padding: "20px", borderRadius: "10px", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
+          <div style={sectionStyle}>
             <h3>Spending by Category</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -92,7 +95,7 @@ const Dashboard = () => {
           </div>
 
           {/* Recent Transactions */}
-          <div style={{ flex: 1, background: "#fff", padding: "20px", borderRadius: "10px", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
+          <div style={sectionStyle}>
             <h3>Recent Transactions</h3>
             {recentTransactions.length > 0 ? (
               recentTransactions.map((t) => (
@@ -121,6 +124,14 @@ const Dashboard = () => {
 };
 
 const cardStyle = {
+  flex: 1,
+  background: "#fff",
+  padding: "20px",
+  borderRadius: "10px",
+  boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+};
+
+const sectionStyle = {
   flex: 1,
   background: "#fff",
   padding: "20px",

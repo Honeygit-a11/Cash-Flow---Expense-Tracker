@@ -1,0 +1,13 @@
+{
+  "user": [],
+  "transactions": [],
+  "beneficiaries": [
+    {
+      "id": "1ed1",
+      "receiverName": "Aspen Hopkins",
+      "accountNo": "1181001700022784",
+      "ifscCode": "PUNB0111810",
+      "amount": "1000"
+    }
+  ]
+}

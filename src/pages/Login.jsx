@@ -24,10 +24,18 @@ const Login = () => {
   };
 
   return (
+    
     <div style={{
       minHeight: "100vh", display: "flex", justifyContent: "center",
       alignItems: "center", backgroundColor: "#f4f6f8"
     }}>
+      {/* <video 
+     src="/logo.mp4"
+     autoPlay
+     loop
+     muted
+     style={{height:'70px', marginLeft:'30px', borderRadius:'50px'}}
+/> */}
       <Card style={{
         width: "400px", padding: "20px", borderRadius: "10px",
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"

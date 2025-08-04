@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Avatar, Button, Typography, Box } from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
 
 const Profile = () => {
   const [email, setEmail] = useState('');
@@ -9,20 +11,16 @@ const Profile = () => {
     const storedEmail = localStorage.getItem('userEmail');
     const storedImage = localStorage.getItem('profileImage');
 
-    if (storedEmail) {
-      setEmail(storedEmail);
-    }
-
-    if (storedImage) {
-      setPreview(storedImage);
-    }
+    if (storedEmail) setEmail(storedEmail);
+    if (storedImage) setPreview(storedImage);
   }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
-      setPreview(URL.createObjectURL(file));
+      const objectURL = URL.createObjectURL(file);
+      setPreview(objectURL); // Set live preview
     }
   };
 
@@ -31,76 +29,53 @@ const Profile = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         localStorage.setItem('profileImage', reader.result);
-        alert('Profile image updated successfully!');
+        setPreview(reader.result); // Update preview with saved base64
+        alert('Profile picture updated!');
       };
       reader.readAsDataURL(image);
     } else {
-      alert('Please select an image first!');
+      alert('Please select an image first.');
     }
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Profile Page</h2>
-      <p><strong>Email:</strong> {email || "No email found"}</p>
+    <Box
+      sx={{
+        width: 350,
+        margin: '50px auto',
+        padding: 3,
+        border: '1px solid #ccc',
+        borderRadius: 2,
+        textAlign: 'center',
+        backgroundColor: '#f7f7f7',
+      }}
+    >
+      <Typography variant="h5" gutterBottom>User Profile</Typography>
 
-      <div style={styles.profilePicContainer}>
-        {preview ? (
-          <img src={preview} alt="Profile" style={styles.image} />
-        ) : (
-          <div style={styles.placeholder}>No Image</div>
-        )}
-      </div>
+      {preview ? (
+        <Avatar
+          src={preview}
+          alt="Profile"
+          sx={{ width: 100, height: 100, margin: '0 auto 10px' }}
+        />
+      ) : (
+        <AccountCircle sx={{ fontSize: 100, color: '#aaa', marginBottom: 1 }} />
+      )}
 
       <input type="file" accept="image/*" onChange={handleImageChange} />
-      <br />
-      <button style={styles.button} onClick={handleSubmit}>Submit</button>
-    </div>
-  );
-};
+      <Button
+        variant="contained"
+        sx={{ mt: 2 }}
+        onClick={handleSubmit}
+      >
+        Submit
+      </Button>
 
-const styles = {
-  container: {
-    padding: '20px',
-    maxWidth: '400px',
-    margin: 'auto',
-    textAlign: 'center',
-    border: '1px solid #ccc',
-    borderRadius: '10px',
-    background: '#f9f9f9'
-  },
-  heading: {
-    marginBottom: '10px',
-  },
-  profilePicContainer: {
-    margin: '10px 0',
-  },
-  image: {
-    width: '120px',
-    height: '120px',
-    borderRadius: '50%',
-    objectFit: 'cover',
-  },
-  placeholder: {
-    width: '120px',
-    height: '120px',
-    borderRadius: '50%',
-    background: '#ddd',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#777',
-    margin: 'auto',
-  },
-  button: {
-    marginTop: '10px',
-    padding: '8px 16px',
-    background: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer'
-  }
+      <Box mt={3} textAlign="left">
+        <Typography><strong>Email:</strong> {email || "Not logged in"}</Typography>
+      </Box>
+    </Box>
+  );
 };
 
 export default Profile;

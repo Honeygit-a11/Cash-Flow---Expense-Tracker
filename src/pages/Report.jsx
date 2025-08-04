@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import jsPDF from "jspdf";
+import AutoTable from "jspdf-autotable";
 
 const Reports = () => {
   const [transactions, setTransactions] = useState([]);
@@ -21,6 +23,34 @@ const Reports = () => {
     .reduce((acc, curr) => acc + curr.amount, 0);
 
   const balance = totalIncome - totalExpense;
+
+  const generatePDF = ()=>{
+    const doc = new jsPDF();
+   doc.text('Expense Report'  ,80,15);
+    doc.setFontSize(16);
+<br/>
+    doc.setFontSize(12);
+    doc.text(`Total Income: ${totalIncome}`,14,15);
+    doc.text(`Total Expense: ${totalExpense}`,14,32);
+    doc.text(`Balance : ${balance}`,14,39);
+    
+    //prepare table
+    const tableData = filteredTransactions.map((t)=>[
+      t.date,
+      t.type,
+      t.category,
+      t.amount,
+      t.Paymentmethod,
+      t.note|| '-',
+    ]);
+     AutoTable(doc,{
+      head: [["Date", "Type", "Category", "Amount", "Payment", "Note"]],
+      body: tableData,
+      startY: 20,
+    });
+
+    doc.save("expense_report.pdf");
+  }
 
   const containerStyle = {
     maxWidth: "900px",
@@ -58,6 +88,15 @@ const Reports = () => {
     padding: "10px",
     textAlign: "center",
   };
+  const button={
+     marginBottom: "15px",
+      padding: "10px 20px",
+      backgroundColor: "#007bff",
+      color: "#fff",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+  }
 
   return (
     <div style={containerStyle}>
@@ -69,6 +108,9 @@ const Reports = () => {
         <div>Total Expense: ₹{totalExpense}</div>
         <div>Balance: ₹{balance}</div>
       </div>
+      <button style={button} onClick={generatePDF}>
+        Download PDF
+      </button>
 
       {/* Filter */}
       <div>

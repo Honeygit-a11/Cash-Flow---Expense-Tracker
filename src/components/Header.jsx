@@ -15,7 +15,7 @@ const handleMenu = (event) => {
   };
   
   const headerStyle = {
-    backgroundColor: "#333",
+    backgroundColor: "#00b894",
     color: "white",
     padding: "10px",
     textAlign: "left",
@@ -31,7 +31,7 @@ const handleMenu = (event) => {
     padding: '0 15px',
     justifyContent: "space-around",
     alignItems: "center",
-    color: "white",
+    color: "black",
     fontSize: "16px",
     textDecoration: 'none',
     marginRight:'50px',
@@ -50,7 +50,7 @@ const handleMenu = (event) => {
     }}>
 
      <video 
-     src="/logo.mp4"
+     src="/logo.gif"
      autoPlay
      loop
      muted
@@ -63,7 +63,7 @@ const handleMenu = (event) => {
           to="/main/dashboard"
           style={NavStyle}
           onMouseEnter={(e) => (e.target.style.color = "#FFD700")}
-          onMouseLeave={(e) => (e.target.style.color = "white")}
+          onMouseLeave={(e) => (e.target.style.color = "black")}
           >
           Dashboard
         </Link>
@@ -71,7 +71,7 @@ const handleMenu = (event) => {
           to="/main/add-transaction"
           style={NavStyle}
           onMouseEnter={(e) => (e.target.style.color = "#FFD700")}
-          onMouseLeave={(e) => (e.target.style.color = "white")}
+          onMouseLeave={(e) => (e.target.style.color = "black")}
           >
           Add Expense
         </Link>
@@ -79,11 +79,19 @@ const handleMenu = (event) => {
           to="/main/reports"
           style={NavStyle}
           onMouseEnter={(e) => (e.target.style.color = "#FFD700")}
-          onMouseLeave={(e) => (e.target.style.color = "white")}
+          onMouseLeave={(e) => (e.target.style.color = "black")}
           >
           Reports
         </Link>
-</Box>
+<Link
+          to="/main/Moneytransfer"
+          style={NavStyle}
+          onMouseEnter={(e) => (e.target.style.color = "#FFD700")}
+          onMouseLeave={(e) => (e.target.style.color = "black")}
+          >
+          Money Transfer
+        </Link>
+            </Box>
 
 
 
