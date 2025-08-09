@@ -18,11 +18,11 @@ const Reports = () => {
     .filter((t) => t.type === "income")
     .reduce((acc, curr) => acc + curr.amount, 0);
 
-  const totalExpense = transactions
+  const totalExpense = Math.ceil(transactions
     .filter((t) => t.type === "expense")
-    .reduce((acc, curr) => acc + curr.amount, 0);
+    .reduce((acc, curr) => acc + curr.amount, 0));
 
-  const balance = totalIncome - totalExpense;
+  const balance = Math.ceil(totalIncome - totalExpense);
 
   const generatePDF = ()=>{
     const doc = new jsPDF();

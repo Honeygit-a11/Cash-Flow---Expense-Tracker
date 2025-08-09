@@ -140,3 +140,15 @@ form button:hover {
     width: 100%;
   }
 }
+.delete-btn{
+background-color: #e74c3c;
+color: white;
+border: none;
+padding: 6px,10px;
+cursor: pointer;
+border-radius: 4px;
+font-size: 14px;
+}
+.delete-btn:hover{
+  background-color: #c0392b;
+}

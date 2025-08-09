@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Moneytransfer.css';
-import {  toastify ,toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+
 
 const Moneytransfer = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,22 @@ const Moneytransfer = () => {
 
   const [message, setMessage] = useState('');
   const [transactions, setTransactions] = useState([]);
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("transactions")) || [];
+    setTransactions(stored);
+
+    const totalIncome = stored.filter(t => t.type === "income").reduce((a, b) => a + b.amount, 0);
+    const totalExpense = stored.filter(t => t.type === "expense").reduce((a, b) => a + b.amount, 0);
+
+    setIncome(totalIncome);
+    setExpense(totalExpense);
+  }, []);
+
+  const balance = income - expense;
+
 
   // Load transactions from localStorage
   useEffect(() => {
@@ -31,6 +48,7 @@ const Moneytransfer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    debugger;
     const { receiverName, accountNo, ifscCode, amount } = formData;
 
     // Validation
@@ -54,16 +72,25 @@ const Moneytransfer = () => {
       return;
     }
 
+    const enterAmount = Number(amount);
+    if (enterAmount > balance) {
+      toast.error('Insufficient Balance');
+      return;
+    }
     const newTransaction = {
       receiverName,
       accountNo,
       ifscCode,
-      category:'Transfer',
+      category: 'Transfer',
       Paymentmethod: 'Bank To Bank',
       amount: Number(amount),
-       date: new Date().toLocaleString(),
+      date: new Date().toLocaleString(),
       type: 'expense'
     };
+    // update balance
+
+    const newBalance = balance - enterAmount;
+    localStorage.setItem('userBalance', newBalance.toString());
 
     // Update state and localStorage
     setTransactions(prev => {
@@ -73,7 +100,7 @@ const Moneytransfer = () => {
     });
 
     toast.success('Money sent successfully!');
-<ToastContainer/>
+
     // Reset form
     setFormData({
       receiverName: '',
@@ -82,6 +109,13 @@ const Moneytransfer = () => {
       amount: ''
     });
   };
+
+  const handleDelete = (indexToDelete) => {
+    const updatedTransactions = transactions.filter((_, index) => index !== indexToDelete);
+    setTransactions(updatedTransactions);
+    localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
+    toast.info('Transaction deleted')
+  }
 
   return (
     <>
@@ -122,7 +156,7 @@ const Moneytransfer = () => {
           {message && <p className="message">{message}</p>}
         </div>
 
-        {transactions.length > 0 && (
+        {transactions.filter(txn => txn.category === 'Transfer').length > 0 && (
           <div className="transaction-report">
             <h3>Transaction Report</h3>
             <table>
@@ -133,16 +167,20 @@ const Moneytransfer = () => {
                   <th>Account No</th>
                   <th>IFSC</th>
                   <th>Amount</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
-                {transactions.map((txn, index) => (
+                {transactions.filter(txn => txn.category === 'Transfer').map((txn, index) => (
                   <tr key={index}>
                     <td>{txn.date}</td>
                     <td>{txn.receiverName}</td>
                     <td>{txn.accountNo}</td>
                     <td>{txn.ifscCode}</td>
                     <td>₹{txn.amount}</td>
+                    <td>
+                      <button className='delete-btn' onClick={() => handleDelete(index)}>Delete</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

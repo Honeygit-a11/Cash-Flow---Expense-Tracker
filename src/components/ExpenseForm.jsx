@@ -1,36 +1,64 @@
-import { Balance } from "@mui/icons-material";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
+const incomeCategories = [
+   "Salary",
+  "Business",
+  "Investment",
+  "Other"
+]
+const expenseCategories = [
+  "Food",
+  "Shopping",
+  "Recharge & subscriptions",
+  "Savings",
+  "Other"
+];
 const ExpenseForm = () => {
   const [formData, setFormData] = useState({
     type: "expense",
     category: "",
     amount: "",
     date: "",
-    Paymentmethod:"",
+    Paymentmethod: "Net Banking",
     note: "",
   });
-  // const [remainingBalance, setRemainingBalance] = useState(0);
- // const [error, setError] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    if (name === 'type') {
+      setFormData((prev) => ({
+        ...prev,
+        type: value,
+        category: value === 'income' ? incomeCategories[0] : expenseCategories[0],
+        Paymentmethod: value === 'income' ? 'Net Banking' : '',
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (!formData.category || !formData.amount || !formData.date || !formData.Paymentmethod) {
-      alert("Please fill in all required fields!");
-      return;
+    if (formData.type === 'expense') {
+      if (!formData.category || !formData.amount || !formData.date || !formData.Paymentmethod) {
+        toast.error("Please fill in all required fields!");
+        return;
+      }
+    } else {
+      if (!formData.category || !formData.amount || !formData.date) {
+        toast.error("Please fill in all required fields!");
+        return;
+      }
     }
 
     const amount = parseFloat(formData.amount);
   if (isNaN(amount) || amount <= 0) {
-    alert("Please enter a valid amount.");
+    toast.warn("Please enter a valid amount.");
     return;
   }
     const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
@@ -46,7 +74,7 @@ const ExpenseForm = () => {
   const remainingBalance = totalIncome - totalExpense;
 
   if (formData.type === "expense" && amount > remainingBalance) {
-    alert("Insufficient balance!");
+    toast.alert("Insufficient balance!");
     return;
   }
     const newTransaction = {
@@ -59,7 +87,7 @@ const ExpenseForm = () => {
     existing.push(newTransaction);
     localStorage.setItem("transactions", JSON.stringify(existing));
 
-    alert("Transaction added!");
+    toast.success("Transaction added!");
 
     // Reset form
     setFormData({
@@ -67,7 +95,7 @@ const ExpenseForm = () => {
       category: "",
       amount: "",
       date: "",
-      Paymentmethod:"",
+      Paymentmethod: "",
       note: "",
     });
   };
@@ -136,15 +164,17 @@ const ExpenseForm = () => {
       {/* Category */}
       <div style={fieldStyle}>
         <label style={labelStyle}>Category</label>
-        <input
-          type="text"
+        <select
           name="category"
           style={inputStyle}
           value={formData.category}
-          placeholder="e.g., Food, Salary"
           onChange={handleChange}
           required
-        />
+        >
+          {(formData.type === 'income' ? incomeCategories : expenseCategories).map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
       </div>
 
       {/* Amount */}
@@ -171,25 +201,34 @@ const ExpenseForm = () => {
           value={formData.date}
           onChange={handleChange}
           required
+          min={new Date().toISOString().split('T')[0]}
+          max={(() => {
+            const d = new Date();
+            d.setDate(d.getDate() + 30);
+            return d.toISOString().split('T')[0];
+          })()}
         />
       </div>
-       <div style={fieldStyle}>
-        <label style={labelStyle}>Payment method</label>
-        <select
-          name="Paymentmethod"
-          style={selectStyle}
-          value={formData.Paymentmethod}
-          onChange={handleChange}
-          required
-        >
+      {/* Payment Method (only for expense) */}
+      {formData.type === 'expense' && (
+        <div style={fieldStyle}>
+          <label style={labelStyle}>Payment method</label>
+          <select
+            name="Paymentmethod"
+            style={selectStyle}
+            value={formData.Paymentmethod}
+            onChange={handleChange}
+            
+          >
             <option value=''>--select--</option>
-          <option value="UPI">UPI</option>
-          <option value="Credit Card">Credit Card</option>
-          <option value="Net Banking">Net Banking</option>
-          <option value="Cash">Cash</option>
-          <option value="DebitCard">Debit Card</option>
-        </select>
-      </div>
+            <option value="UPI">UPI</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Net Banking">Net Banking</option>
+            <option value="Cash">Cash</option>
+            <option value="DebitCard">Debit Card</option>
+          </select>
+        </div>
+      )}
 
 
       {/* Note */}

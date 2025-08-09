@@ -8,7 +8,7 @@ import Reports from "./pages/Report";
 import Profile from "./pages/Profile";
 import Logout from "./pages/Logout";
 import Moneytransfer from "./pages/Moneytransfer";
-
+import Loan from "./pages/Loan";
 
 
 const App =() => {
@@ -18,6 +18,7 @@ const App =() => {
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Login/>}/>
+       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/main" element={<MainLayout/>}>
         <Route index element={<Dashboard/>}/>
@@ -25,6 +26,7 @@ const App =() => {
         <Route path="add-transaction" element={<ExpenseForm/>}/>
         <Route path="reports" element={<Reports/>}/>
         <Route path='MoneyTransfer' element={<Moneytransfer/>}/>
+        <Route path='loan' element={<Loan/>}/>
         <Route path="profile" element={<Profile/>}/>
         <Route path="logout" element={<Logout/>}/>
       </Route>
