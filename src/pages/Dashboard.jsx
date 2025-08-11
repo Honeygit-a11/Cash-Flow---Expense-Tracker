@@ -41,15 +41,19 @@ const Dashboard = () => {
           <h3>Total Income</h3>
           <p>₹{income}</p>
         </div>
+      
+      
         <div className="card card-expense">
           <h3>Total Expense</h3>
           <p>₹{Math.ceil(expense)}</p>
         </div>
+      
+    
         <div className="card card-balance">
           <h3>Balance</h3>
           <p>₹{Math.ceil(balance)}</p>
         </div>
-      </div>
+        </div>
 
       <div className="section-container">
         <div className="section">

@@ -40,7 +40,8 @@
 }
 
 .hon-link:hover {
-  color: #f1cf0e;
+  color: #ffe600;
+  transform: scale(1.2);
 }
 
 .account-icon {
