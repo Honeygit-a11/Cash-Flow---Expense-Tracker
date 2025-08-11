@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
-import './Dashboard.css';
+import "./Dashboard.css"
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
